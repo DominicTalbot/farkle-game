@@ -28,7 +28,29 @@ The goal of this project is to build a fully functional Farkle game with the fol
 - Basic dice rolling and display...
 
 ### Planned
-- Smooth dice rolling animations...
+#### Rogue-Like Progression
+To make the game more engaging and replayable, I’ll add rogue-like mechanics where players face increasingly difficult opponents, earn money, and unlock upgrades. Here’s how it works:
+
+### **Core Features**
+- **Opponents**: Face unique opponents with increasing difficulty (e.g., Drunkard, Merchant, Knight).
+- **Money**: Earn money by defeating opponents. Use it to buy upgrades in the shop.
+- **Shop**: Spend money on:
+  - **Dice Upgrades**: Better dice with higher chances of rolling good numbers.
+  - **Badges**: Permanent buffs (e.g., start with extra points, re-roll dice).
+  - **Drinks**: Temporary buffs for the next match (e.g., re-roll dice, double points).
+- **Progression**: Unlock new opponents and upgrades as you progress.
+- **Losing**: If you lose, you get kicked out of the tavern and start over (but keep permanent badges).
+
+### **Example Upgrades**
+- **Lucky Dice**: Higher chance of rolling 1s and 5s.
+- **Gambler's Charm**: Start each round with 1200 points.
+- **Tavern Ale**: Re-roll one dice per turn.
+
+### **Game Flow**
+1. Start in the tavern with basic dice.
+2. Choose an opponent to challenge.
+3. Win to earn money and unlock upgrades, or lose and start over.
+4. Use the shop to prepare for harder opponents.
 
 ## Progress So Far
 - Set up the React app and folder structure...
