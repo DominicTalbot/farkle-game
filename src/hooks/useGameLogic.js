@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const useGameLogic = () => {
-  const [dice, setDice] = useState(Array(6).fill(1));
+  const [dice, setDice] = useState(Array(6).fill(null));
   const [selectedDice, setSelectedDice] = useState([]);
   const [score, setScore] = useState(0);
   const [roundScore, setRoundScore] = useState(0);
@@ -88,7 +88,7 @@ const useGameLogic = () => {
     setScore((prevScore) => prevScore + potentialScore);
     const newRemainingDice = remainingDice - selectedDice.length;
     setRemainingDice(newRemainingDice);
-    setDice(Array(newRemainingDice).fill(1));
+    setDice(Array(newRemainingDice).fill(null));
     setSelectedDice([]);
     setIsRolling(true); // Show the roll button again
   };
@@ -98,7 +98,7 @@ const useGameLogic = () => {
     setScore((prevScore) => prevScore + potentialScore);
     const newRemainingDice = remainingDice - selectedDice.length;
     setRemainingDice(newRemainingDice);
-    setDice(Array(newRemainingDice).fill(1)); // Update dice to remaining count
+    setDice(Array(newRemainingDice).fill(null)); // Update dice to remaining count
     setSelectedDice([]);
     setIsRolling(true); // Show the roll button again
   };
@@ -106,7 +106,7 @@ const useGameLogic = () => {
   const skipTurn = () => {
     setRoundScore(0);
     setRemainingDice(6);
-    setDice(Array(6).fill(1)); // Reset dice to 6
+    setDice(Array(6).fill(null)); // Reset dice to 6
     setSelectedDice([]);
     setIsRolling(true); // Show the roll button again
   };
