@@ -13,12 +13,13 @@ const useGameLogic = () => {
 
   const rollDice = () => {
     const newDice = Array(remainingDice)
-      .fill(0)
+      .fill(null)
       .map(() => Math.floor(Math.random() * 6) + 1);
     setDice(newDice);
     setSelectedDice([]);
+    setPotentialScore(0); // Reset potential score
     setIsRolling(false); // Hide the roll button after rolling
-    setIsBust(false);
+    setIsBust(false); // Hide the bust message
     checkForBust(newDice); // Check if the roll is a bust
   };
 
@@ -36,7 +37,7 @@ const useGameLogic = () => {
   };
 
   const calculatePotentialScore = (selectedDice) => {
-    const counts = Array(7).fill(0);
+    const counts = Array(7).fill(null);
     selectedDice.forEach((index) => counts[dice[index]]++);
 
     let potential = 0;
@@ -61,7 +62,7 @@ const useGameLogic = () => {
   };
 
   const checkForBust = (diceValues) => {
-    const counts = Array(7).fill(0);
+    const counts = Array(7).fill(null);
     diceValues.forEach((value) => counts[value]++);
 
     let canScore = false;
@@ -86,10 +87,10 @@ const useGameLogic = () => {
   const scorePoints = () => {
     setRoundScore((prevRoundScore) => prevRoundScore + potentialScore);
     setScore((prevScore) => prevScore + potentialScore);
-    const newRemainingDice = remainingDice - selectedDice.length;
-    setRemainingDice(newRemainingDice);
-    setDice(Array(newRemainingDice).fill(null));
+    setRemainingDice(6); // Reset dice for the next turn
+    setDice(Array(6).fill(null)); // Reset dice to 6
     setSelectedDice([]);
+    setPotentialScore(0); // Reset potential score
     setIsRolling(true); // Show the roll button again
   };
 
@@ -97,9 +98,27 @@ const useGameLogic = () => {
     setRoundScore((prevRoundScore) => prevRoundScore + potentialScore);
     setScore((prevScore) => prevScore + potentialScore);
     const newRemainingDice = remainingDice - selectedDice.length;
-    setRemainingDice(newRemainingDice);
-    setDice(Array(newRemainingDice).fill(null)); // Update dice to remaining count
+    if (newRemainingDice === 0) {
+      setRemainingDice(6); // Reset to 6 dice if all dice are used
+      setDice(Array(6).fill(null)); // Reset dice array
+    } else {
+      setRemainingDice(newRemainingDice);
+      // Remove scored dice from the pool
+      const newDice = dice.filter((_, index) => !selectedDice.includes(index));
+      setDice(newDice);
+    }
     setSelectedDice([]);
+    setPotentialScore(0); // Reset potential score
+    setIsRolling(true); // Show the roll button again
+  };
+
+  const scoreAndSkip = () => {
+    setScore((prevScore) => prevScore + potentialScore);
+    setRoundScore(0); // Reset round score
+    setRemainingDice(6); // Reset dice to 6
+    setDice(Array(6).fill(null)); // Reset dice array
+    setSelectedDice([]);
+    setPotentialScore(0); // Reset potential score
     setIsRolling(true); // Show the roll button again
   };
 
@@ -108,6 +127,7 @@ const useGameLogic = () => {
     setRemainingDice(6);
     setDice(Array(6).fill(null)); // Reset dice to 6
     setSelectedDice([]);
+    setPotentialScore(0); // Reset potential score
     setIsRolling(true); // Show the roll button again
   };
 
@@ -125,6 +145,7 @@ const useGameLogic = () => {
     toggleSelectDice,
     scorePoints,
     scoreAndContinue,
+    scoreAndSkip,
     skipTurn,
   };
 };

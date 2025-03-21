@@ -19,6 +19,7 @@ const App = () => {
     toggleSelectDice,
     scorePoints,
     scoreAndContinue,
+    scoreAndSkip,
     skipTurn,
   } = useGameLogic();
 
@@ -46,17 +47,20 @@ const App = () => {
         <>
           {hasScorableSelection && (
             <>
-              <button onClick={scorePoints}>Score</button>
-              <button onClick={scoreAndContinue}>Score and Continue</button>
+              {/* <button onClick={scorePoints}>Score</button> */}
+              <button onClick={scoreAndContinue}>Score</button>
+              <button onClick={scoreAndSkip}>Score and Skip</button>
             </>
           )}
           <button onClick={skipTurn}>Skip Turn</button>
         </>
       )}
       <div className="scoreboard">
-        <h2>Score: {score}</h2>
+        <h2>
+          Score: {score}
+          {potentialScore > 0 && ` + ${potentialScore}`} {/* Show potential score next to the total score */}
+        </h2>
         <h3>Round Score: {roundScore}</h3>
-        <h3>Potential Score: {potentialScore}</h3>
         <h3>Goal: {goal}</h3>
         <h3>Remaining Dice: {remainingDice}</h3>
       </div>
