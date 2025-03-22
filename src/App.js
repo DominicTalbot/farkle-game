@@ -17,7 +17,6 @@ const App = () => {
     remainingDice,
     rollDice,
     toggleSelectDice,
-    scorePoints,
     scoreAndContinue,
     scoreAndSkip,
     skipTurn,
