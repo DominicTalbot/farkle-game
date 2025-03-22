@@ -95,8 +95,8 @@ const useGameLogic = () => {
   };
 
   const scoreAndContinue = () => {
+    // Only update the round score, not the total score
     setRoundScore((prevRoundScore) => prevRoundScore + potentialScore);
-    setScore((prevScore) => prevScore + potentialScore);
     const newRemainingDice = remainingDice - selectedDice.length;
     if (newRemainingDice === 0) {
       setRemainingDice(6); // Reset to 6 dice if all dice are used
@@ -113,7 +113,10 @@ const useGameLogic = () => {
   };
 
   const scoreAndSkip = () => {
-    setScore((prevScore) => prevScore + potentialScore);
+    if (!isBust) {
+      // Update both the total score and reset the round score only if not busted
+      setScore((prevScore) => prevScore + roundScore + potentialScore);
+    }
     setRoundScore(0); // Reset round score
     setRemainingDice(6); // Reset dice to 6
     setDice(Array(6).fill(null)); // Reset dice array
@@ -123,10 +126,15 @@ const useGameLogic = () => {
   };
 
   const skipTurn = () => {
-    setRoundScore(0);
-    setRemainingDice(6);
-    setDice(Array(6).fill(null)); // Reset dice to 6
+    if (!isBust) {
+      // Skip the turn and update the total score with the round score only if not busted
+      setScore((prevScore) => prevScore + roundScore);
+    }
+    setRoundScore(0); // Reset round score
+    setRemainingDice(6); // Reset dice to 6
+    setDice(Array(6).fill(null)); // Reset dice array
     setSelectedDice([]);
+    setIsBust(false);
     setPotentialScore(0); // Reset potential score
     setIsRolling(true); // Show the roll button again
   };

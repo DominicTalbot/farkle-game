@@ -58,9 +58,10 @@ const App = () => {
       <div className="scoreboard">
         <h2>
           Score: {score}
-          {potentialScore > 0 && ` + ${potentialScore}`} {/* Show potential score next to the total score */}
         </h2>
-        <h3>Round Score: {roundScore}</h3>
+        <h3>Round Score: {roundScore}
+        {potentialScore > 0 && ` + ${potentialScore}`}
+        </h3>
         <h3>Goal: {goal}</h3>
         <h3>Remaining Dice: {remainingDice}</h3>
       </div>
